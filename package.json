@@ -1,0 +1,27 @@
+{
+  "name": "spa-key-arrieta-studio",
+  "version": "1.0.0",
+  "description": "API para spa key",
+  "keywords": [
+    "node",
+    "express",
+    "multer",
+    "mongoose",
+    "bcrypt",
+    "jwt"
+  ],
+  "license": "ISC",
+  "author": "Melany vannesa pinzon laserna <vanessalaserna797@gmail.com>",
+  "contributors": [
+    "Felipe Reyes <areyessaenz20@gmail.com> "
+  ],
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "ejecuta Start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1" 
+  }
+}
