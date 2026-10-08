@@ -18,8 +18,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "ejecuta Start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --watch src/index.js"
   },
   "dependencies": {
     "express": "^5.2.1" 
