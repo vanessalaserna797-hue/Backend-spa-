@@ -1,34 +1,20 @@
-import express from 'express';  //CommonJs
-                                //EsModule
-    const app = express();
 
-    app.get('/health', (req, res) => {
-        res.send('Servidor de Spa Keydy')
-    });
+import express from 'express';  //CommonJs}
+import citasRoute from'./routes/citas.routes.js';
 
-    app.get('/cita', (req,res) => {
-        res.send('Listar todas las citas del dia')
-    });
+//EsModule
+const app = express();
 
-    app.post('/cita', (req,res) => {
-        res.send('Regitrar Cita')
-    });
+app.get('/health', (req, res) => {
+    res.send('Servidor de Spa Keydy')
+});
 
-    app.put('/cita', (req,res) => {
-        res.send('Actualizar todas las propiedades de una cita')
-    });
-    
-    app.patch('/cita', (req,res) => {
-        res.send('Actualizar una o mas propiedades de las citas')
-    });
+//Enlazar todas las rutas de aplicacion
+app.use('/api/cita', citasRoute);
 
-    //Eliminar
-    app.delete('/cita', (req,res) => {
-        res.send('Eliminar Cita')
-    });
 // Iniciar el servidor 
 
 const port = 3000;
-app.listen(port,() => {
+app.listen(port, () => {
     console.log(`servidor corriendo http://localhost:${port}`);
 });
