@@ -5,6 +5,7 @@ import citasRoute from'./routes/citas.routes.js';
 //EsModule
 const app = express();
 
+//define 
 app.get('/health', (req, res) => {
     res.send('Servidor de Spa Keydy')
 });

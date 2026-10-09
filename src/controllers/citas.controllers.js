@@ -1,3 +1,4 @@
+//controlador define quien hace una accion especifica 
 const listarCita = (rq, res) => {
     res.send('Listar todas las citas del dia')
 };
