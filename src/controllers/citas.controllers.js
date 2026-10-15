@@ -1,40 +1,45 @@
 //controlador define quien hace una accion especifica 
-const listarCita = (rq, res) => {
-    res.send('Listar todas las citas del dia')
+import {dbInsertCita} from '../services/citas.services.js'
+const listarCita = async (req, res) => {
+    try {
+        const cita = req.body;
+        const newcita = await dbInsertCita(cita);  
+
+        res.json({msg:'Listar todas las citas del dia', cita:newcita})
+    } catch (error) {  
+        console.error(error);
+        res.json({
+            msg:'Error al registrar cita'
+        })  
+    }
 };
 
-export{
-    listarCita
-}
+const registrarCita = async (req, res) => { 
+    try {
+        const cita = req.body;
+        const newcita = await dbInsertCita(cita);  
 
-const registrarCita = (req, res) => {
-    res.send('Regitrar Cita')
+        res.json({msg:'Listar todas las citas del dia', cita:newcita})
+    } catch (error) {  
+        console.error(error);
+        res.json({
+            msg:'Error al registrar cita'
+        })  
+    }
 };
-
-export {
-    registrarCita
-}
 
 const ActualizarCita = (req, res) => {
     res.send('Actualizar todas las propiedades de una cita')
 };
 
-export {
-    ActualizarCita
-}
-
 const ActualizarunaomasCitas = (req, res) => {
     res.send('Actualizar una o mas propiedades de las citas')
 };
-
-export{
-    ActualizarunaomasCitas
-}
 
 const EliminarCita = (req, res) => {
     res.send('Eliminar Cita')
 }
 
 export{
-    EliminarCita
+    EliminarCita, listarCita, registrarCita, ActualizarCita, ActualizarunaomasCitas
 }
