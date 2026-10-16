@@ -1,4 +1,4 @@
-import {dbCreateCategory, dbGetCategories, dbDeleteCategory} from  "../services/categories.services.js";
+import {dbCreateCategory, dbGetCategories, dbDeleteCategory, dbUpdateCategory, dbGetCategory} from  "../services/categories.services.js";
 
 
 const createCategory = async (req, res) => {
@@ -20,15 +20,25 @@ const createCategory = async (req, res) => {
 }
 
 const getCategories = async (req, res) => {
-   const data =  await dbGetCategories ();
+    try {
+         const data =  await dbGetCategories ();
 
    res.json({
         msg: 'Lista de categorias',
         data: data
    });
+    } catch (error) {
+        console.error(error);
+
+        res.json({
+            msg:'No se ha podido obtener las categorias activas'
+        })
+        
+    }
+  
 }
 
-const deletecategory = async  (req, res) => {
+const deleteCategory = async  (req, res) => {
     const id = req.params.id;
 
     const data = await dbDeleteCategory(id)
@@ -38,8 +48,52 @@ const deletecategory = async  (req, res) => {
     });
 }
 
+const updateCategory = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const inputData = req.body;
+
+        const data = await dbUpdateCategory( id, inputData);
+
+        res.json({ 
+            msg: 'Categoria Actualizada',
+            data: data 
+        });
+    } catch (error) {
+        console.error(error);
+
+        res.json({
+            msg: 'no se ha pordido eliminar la categoria'
+        })
+        
+    }
+   
+}
+
+const getCategory = async (req,res) => {
+    try {
+        const id = req.params.id;
+
+        const data = await dbGetCategory(id)
+
+        res.json({
+            msg: 'Obtiene una categoria',
+            data: data
+        });
+    } catch (error) {
+        console.error(error);
+
+        res.json({
+            msg:'No se pudo obtener categoria ID'
+        });
+        
+    }
+}
+
 export {
     createCategory,
     getCategories,
-    deletecategory
+    deleteCategory,
+    updateCategory, 
+    getCategory
 }
