@@ -9,10 +9,17 @@ const categorySchema = new Schema(
         unique: true,
         minlength: 5
     },
-    descripcion: String
+    descripcion: String,
+    status: {
+        type: Boolean,
+        default: true 
+    }
 }, 
     //Configuraciones de la estructura de datos 
-{});
+{
+    timestamps: true, //Agregar los campos creatAt automaticamente 
+    versionKey: false //Elimina la propedad de versionamiento _V del schema 
+});
 
 //Definir el model a partir de la estructura del documento 
 const categoryModel = model(
