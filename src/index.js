@@ -6,6 +6,8 @@ import conexion from'./config/mongo.config.js';
 import citasRoute from'./routes/citas.routes.js';
 import categoriaRoute from './routes/categories.routes.js';
 
+const port = process.env.PORT || 3001;
+
 //EsModule
 const app = express();          //Instancia de Express
 
@@ -26,7 +28,7 @@ app.use('/api/categories', categoriaRoute)
 
 // Iniciar el servidor 
 
-const port = 3000;
+
 app.listen(port, () => {
     console.log(`servidor corriendo http://localhost:${port}`);
 });

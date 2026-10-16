@@ -2,13 +2,13 @@
 //ODM
 import mongoose from "mongoose";
 
-    const URL_ATLAS = 'mongodb+srv://Melany:1234@cluster0.h7ajufz.mongodb.net/'
+    const URI_MONGO = process.env.URI_MONGO || "mongodb://localhost:27017" ;
 
     //sequelize (SQL) 
     //Prisma (SQL ,NOSQL)
 const conexion = async () => {
     try {
-        await mongoose.connect(URL_ATLAS, {})
+        await mongoose.connect(URI_MONGO, {})
         console.log('Conectado a la base de datos')
     } catch (error) {
         console.error ('Error en la base de datos')
