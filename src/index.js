@@ -5,6 +5,7 @@ import conexion from'./config/mongo.config.js';
 
 import citasRoute from'./routes/citas.routes.js';
 import categoriaRoute from './routes/categories.routes.js';
+import insumosRoute from './routes/insumos.routes.js';
 
 const port = process.env.PORT || 3001;
 
@@ -24,7 +25,8 @@ app.get('/health', (req, res) => {
 
 //Enlazar todas las rutas de aplicacion
 app.use('/api/cita', citasRoute);
-app.use('/api/categories', categoriaRoute)
+app.use('/api/categories', categoriaRoute);
+app.use('/api/insumos', insumosRoute);
 
 // Iniciar el servidor 
 
