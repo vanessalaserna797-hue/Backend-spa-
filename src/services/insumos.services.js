@@ -1,5 +1,9 @@
 import insumosModel from"../models/insumos.model.js"
 
+const dbinsertarInsumos = async (newInsumo) => {
+    return await insumosModel.create(newInsumo);
+}
+
 const dbCreateInsumos = async (newInsumo) => {
     return await insumosModel.create(newInsumo);
 }
@@ -15,8 +19,17 @@ const dbGetInsumos = async (status) => {
 
     return await ProductModel.find( filter );
 }
+const dbDeleteInsumos = async (id) => {
+    return await insumosModel.findOneAndDelete({_id: id});
+}
+const dbUpdateInsumos = async (id) => {
+    return await insumosModel.findById(id);
+}
 
 export {
+    dbinsertarInsumos,
     dbCreateInsumos,
-    dbGetInsumos,
+    dbDeleteInsumos,
+    dbUpdateInsumos,
+    dbGetInsumos
 }

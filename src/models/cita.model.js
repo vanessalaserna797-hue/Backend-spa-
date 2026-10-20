@@ -25,7 +25,12 @@ const citaSchema = new Schema({
     },
     usuario_id:{
         type: String, //vamos a cambiar el tipo mas adelante 
-        required: true
+        required: [true, 'El Id tiene que ser obligatorio']
+    },
+    createdBy: {
+     type: Schema.Types.ObjectId,
+        ref: 'cita',
+        default: null
     }
 }, {
     timestamps: true            //crea automaticamente CreatedAt, updatedAt

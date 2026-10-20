@@ -17,8 +17,7 @@ const createCategory = async (req, res) => {
 
         res.json({msg: 'No se pudo registrar la categoria'});
     }
-}
-
+} 
 const getCategories = async (req, res) => {
     try {
          const data =  await dbGetCategories ();
@@ -64,7 +63,7 @@ const updateCategory = async (req, res) => {
 
         res.json({
             msg: 'no se ha pordido eliminar la categoria'
-        })
+        });
         
     }
    

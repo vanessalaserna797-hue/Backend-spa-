@@ -1,9 +1,9 @@
 //controlador define quien hace una accion especifica 
-import {dbInsertCita} from '../services/citas.services.js'
+import {dbInsertCita, dbReadCitas} from '../services/citas.services.js'
 const listarCita = async (req, res) => {
     try {
-        const cita = req.body;
-        const newcita = await dbInsertCita(cita);  
+
+        const newcita = await dbReadCitas(cita);  
 
         res.json({msg:'Listar todas las citas del dia', cita:newcita})
     } catch (error) {  

@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose' ;
+import {Schema, SchemaType, model} from 'mongoose' ;
 
 //Definir el Schema 
 const insumosSchema = new Schema({
@@ -18,9 +18,15 @@ const insumosSchema = new Schema({
         enum:['disponible','agotado','sin insumo'],
         default: 'disponible'
     },
-    createdBy:{
-        type: String,
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'category',
         required: true
+    },
+    createdBy:{
+        type: Schema.Types.ObjectId,
+        ref: 'cita',
+        default: null
     }
 },{
     timestamps: true, 

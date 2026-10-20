@@ -1,4 +1,16 @@
-import { dbCreateInsumos } from '../services/insumos.services.js';
+import { dbCreateInsumos, dbGetInsumos, dbinsertarInsumos, dbUpdateInsumos} from '../services/insumos.services.js';
+
+    const listarInsumos = async (req, res) => {
+        try {
+            const insumo = req.body;
+            const newInsumo = await dbinsertarInsumos(insumo);
+        } catch (error) {
+            console.error(error);
+            res.json({
+                msg:'Error al Listar insumos'
+            })
+        }
+    };
 
 const createInsumos = async (req , res) =>{
     try {
@@ -15,13 +27,7 @@ const createInsumos = async (req , res) =>{
 //http//localhost:3000/api/insumos -->{}
     //http//localhost:3000/api/insumos?status -->{status}
 const GetInsumos = async (req, res) => {
-     const availableStatus = ['disponible','agotado','sin insumo'];
 
-     let filter = {};
-
-     if (query && availableStatus.includes(query.status)){}
-
-     
     try {
         console.log(req.query);
         const query = req.query; 
@@ -38,8 +44,57 @@ const GetInsumos = async (req, res) => {
         });
     }
 }
+const deleteInsumos = async (req, res) => {
+    return await res.json({
+        msg:'Eliminar un insumo', data: data
+    });
+}
+const updateInsumos = async(req, res) => {
+    try {
+        const id = req.params.id;
+        const inputData  = req.body;
+
+        const data = await dbUpdateInsumos(id, inputData);
+
+        res.json({
+            msg: 'Insumo Actualizado',
+            data: data 
+        });
+    } catch (error) {
+        console.error(error);
+
+        res.json({
+            msg: 'no se pudo eliminar el insumo'
+        });
+        
+    }
+}
+
+const getInsumo = async (req, res) =>{
+    try {
+        const id = req.params.id;
+        
+        const data = await dbUpdateInsumos(id)
+
+        res.json({
+            msg:'Agrega un insumo',
+            data: data
+        });
+    } catch (error) {
+        console.error(error);
+
+        res.json({
+            msg:'No se pudo registrar el insumo '
+        });
+       
+    }
+}
 
 export {
+    listarInsumos,
     createInsumos,
     GetInsumos,
+    deleteInsumos,
+    updateInsumos,
+    getInsumo
 }

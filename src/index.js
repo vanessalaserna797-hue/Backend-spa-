@@ -1,36 +1,31 @@
-
-import express from 'express';  //CommonJs}
-
-import conexion from'./config/mongo.config.js';
-
-import citasRoute from'./routes/citas.routes.js';
-import categoriaRoute from './routes/categories.routes.js';
+// const express = require('express');   //CommonJS
+import express from 'express';  
+import conexion from './config/mongo.config.js';  // Conexion a la base de datos
+import citasRoute from './routes/citas.routes.js';
+import categoriesRoute from './routes/categories.routes.js';
 import insumosRoute from './routes/insumos.routes.js';
 
 const port = process.env.PORT || 3001;
 
-//EsModule
-const app = express();          //Instancia de Express
+const app = express();    // Instancia de express
 
-conexion();         //ejecuta la coneccion a la base de datos
+conexion();   // Ejecuta la conexion a la base de datos
 
+// Habilita a la app para comprender objetos JSON
+app.use(express.json() );
 
-//Habilita mi aplicacion para imprementar JSON
-app.use(express.json());
-
-//define endpoint  (ruta de entrada)
-app.get('/health', (req, res) => {
-    res.send('Servidor de Spa Keydy')
+// Definiendo 1 endpoint (ruta de entrada)
+app.get('/healt', (req, res) => {
+  res.send('Apartado CFF - Corralejo Fast Food panel menu compuesto Funcionado a la perfección!')
 });
 
-//Enlazar todas las rutas de aplicacion
-app.use('/api/cita', citasRoute);
-app.use('/api/categories', categoriaRoute);
-app.use('/api/insumos', insumosRoute);
-
-// Iniciar el servidor 
+// Enlazar todas las rutas de la app
+app.use( '/api/citas', citasRoute);
+app.use( '/api/categories', categoriesRoute );
+app.use( '/api/insumos', insumosRoute);
 
 
+//Iniciar servidor
 app.listen(port, () => {
-    console.log(`servidor corriendo http://localhost:${port}`);
+  console.log //(Servidor está corriendo en http://localhost:${port});
 });

@@ -7,15 +7,25 @@ const dbInsertCita = async (newCita) => {
     return await citaModel.create(newCita);
 }
 
-const dbReadCitas = () => {}
+const dbReadCitas = async () => {
+ return await citaModel.find({estado: confirmada}).populate('createdBy');
+}
 
-const dbUpdateCita = () => {}
+const dbUpdateCita = async (id, citaUpdated) => {
+     return await citaModel.findOneAndUpdate({_id: id }, citaUpdated, {new: true});
+}
 
-const dbDelateCita = () => {}
+const dbDelateCita = async (id) => {
+    return await citaModel.findOneAndDelete({_id: id});
+}
+const dbGetCita = async (id) => {
+    return await citaModel.findById(id);
+}
 
 export {
     dbInsertCita,
     dbReadCitas,
     dbUpdateCita,
-    dbDelateCita
+    dbDelateCita,
+    dbGetCita
 }

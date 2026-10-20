@@ -6,13 +6,18 @@ const categorySchema = new Schema(
 {
     nombre: {
         type: String,
-        unique: true,
+        unique: [true, 'El nombre de el producto es unico'],       //Regla
         minlength: 5
     },
     descripcion: String,
     status: {
         type: Boolean,
         default: true 
+    },
+    createBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'cita',
+        default: null
     }
 }, 
     //Configuraciones de la estructura de datos 
