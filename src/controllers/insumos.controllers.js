@@ -13,35 +13,34 @@ import { dbCreateInsumos, dbGetInsumos, dbinsertarInsumos, dbUpdateInsumos} from
         }
     };
 
-    const createInsumos = async (req , res) => {
-            try {
-                    const inputData = req.body;
+        const createInsumos = async (req , res) => {
+                try {
+                        const inputData = req.body;
 
-                    const data = await dbCreateInsumos(inputData);
+                        const data = await dbCreateInsumos(inputData);
 
-                    res.json({msg:'Registrar insumo', data: data});
-                } catch (error) {
-                console.error(error);
-                res.json({msg:'No se pudo registrar el insumo'});
-
-
-                if(error.nema == 'ValidtionError') {
-                    return res.json({
-                        msg:'Erro de ID '
-
-                    })
-                }
-
-                if (error.code == 1100){
-                    const field = Object.keys(error.keyValue)[0]; 
-
-                    return res.json({
-                        msg: `Error por complicidad en el campo'${field}'`, 
-                        [field]: `El campo'${field}' con el valor '${error.keyValue[field]}', ya se encuentra regitrado `
+                    if(error.name == 'CatError') {
+                        return res.status(400).json({
+                        msg: 'Error en el formato ID',
+                        [error.path]: `El identificador ${error.value} no tiene el formato ID `
                     });
+                     res.status(200).json({msg:'Registrar insumo', data: data});
+                     
+                    } catch (error) {
+                    console.error(error);
+                    
+                    if (error.code == 1100){
+                        const field = Object.keys(error.keyValue)[0]; 
+
+                        return res.json({
+                            msg: `Error por complicidad en el campo'${field}'`, 
+                            [field]: `El campo'${field}' con el valor '${error.keyValue[field]}', ya se encuentra regitrado `
+                        });
+                    }
+                    res.json({msg:'No se pudo registrar el insumo'});
                 }
+            }
         }
-    }
 //http//localhost:3000/api/insumos -->{}
     //http//localhost:3000/api/insumos?status -->{status}
 const GetInsumos = async (req, res) => {
@@ -52,7 +51,7 @@ const GetInsumos = async (req, res) => {
 
         const data = await dbGetInsumos(query);
 
-        res.json({msg:'Lista total o parcialmente de los productos', data: data});
+        res.status(200).json({msg:'Lista total o parcialmente de los productos', data: data});
 
     } catch (error) {
         console.error(error);
@@ -64,7 +63,7 @@ const GetInsumos = async (req, res) => {
     }
 }
 const deleteInsumos = async (req, res) => {
-    return await res.json({
+    return await res.status(200).json({
         msg:'Eliminar un insumo', data: data
     });
 }
@@ -83,12 +82,15 @@ const updateInsumos = async(req, res) => {
     } catch (error) {
         console.error(error);
 
-        res.json({
+        res.status(400).json({
             msg: 'no se pudo eliminar el insumo'
         });
         
-         if(error.name === 'CatError') {
-
+         if(error.name == 'CatError') {
+            return res.status(400).json({
+                msg: 'Error en el formato ID',
+                [error.path]: `El identificador ${error.value} no tiene el formato ID `
+            });
         }
     }
 }
@@ -99,19 +101,22 @@ const getInsumo = async (req, res) =>{
         
         const data = await dbUpdateInsumos(id)
 
-        res.json({
+        res.status(400).json({
             msg:'Agrega un insumo',
             data: data
         });
     } catch (error) {
         console.error(error);
 
-        res.json({
+        res.statis(500).json({
             msg:'No se pudo registrar el insumo '
         });
         
-        if(error.name === 'CatError') {
-
+        if(error.name == 'CatError') {
+            return res.status(400).json({
+                msg: 'Error en el formato ID',
+                [error.path]: `El identificador ${error.value} no tiene el formato ID `
+            });
         }
     }
 }
