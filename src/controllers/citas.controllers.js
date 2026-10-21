@@ -1,11 +1,11 @@
 //controlador define quien hace una accion especifica 
-import {dbInsertCita, dbReadCitas} from '../services/citas.services.js'
+import {dbInsertarCita, dbReadCitas} from "../services/citas.services.js";
 const listarCita = async (req, res) => {
     try {
 
-        const newcita = await dbReadCitas(cita);  
+        const newcita = await dbReadCitas();  
 
-        res.json({msg:'Listar todas las citas del dia', cita:newcita})
+        res.json({msg:'Listar todas las citas del dia', cita: newcita})
     } catch (error) {  
         console.error(error);
         res.json({
@@ -17,9 +17,9 @@ const listarCita = async (req, res) => {
 const registrarCita = async (req, res) => { 
     try {
         const cita = req.body;
-        const newcita = await dbInsertCita(cita);  
+        const newcita = await dbInsertarCita(cita);  
 
-        res.json({msg:'Listar todas las citas del dia', cita:newcita})
+        res.json({msg:'Listar todas las citas del dia', cita: newcita})
     } catch (error) {  
         console.error(error);
         res.json({
@@ -38,8 +38,12 @@ const ActualizarunaomasCitas = (req, res) => {
 
 const EliminarCita = (req, res) => {
     res.send('Eliminar Cita')
-}
+};
 
 export{
-    EliminarCita, listarCita, registrarCita, ActualizarCita, ActualizarunaomasCitas
+    EliminarCita, 
+    listarCita,
+    registrarCita,
+    ActualizarCita,
+    ActualizarunaomasCitas
 }

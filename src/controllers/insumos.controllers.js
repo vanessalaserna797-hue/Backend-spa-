@@ -4,6 +4,7 @@ import { dbCreateInsumos, dbGetInsumos, dbinsertarInsumos, dbUpdateInsumos} from
         try {
             const insumo = req.body;
             const newInsumo = await dbinsertarInsumos(insumo);
+            const dbinsertarInsumos = (newInsumo);
         } catch (error) {
             console.error(error);
             res.json({
@@ -12,18 +13,35 @@ import { dbCreateInsumos, dbGetInsumos, dbinsertarInsumos, dbUpdateInsumos} from
         }
     };
 
-const createInsumos = async (req , res) =>{
-    try {
-        const inputData = req.body;
+    const createInsumos = async (req , res) => {
+            try {
+                    const inputData = req.body;
 
-        const data = await dbCreateInsumos(inputData);
+                    const data = await dbCreateInsumos(inputData);
 
-        res.json({msg:'Registrar insumo', data: data});
-    } catch (error) {
-        console.error(error);
-        res.json({msg:'No se pudo registrar el insumo'});
+                    res.json({msg:'Registrar insumo', data: data});
+                } catch (error) {
+                console.error(error);
+                res.json({msg:'No se pudo registrar el insumo'});
+
+
+                if(error.nema == 'ValidtionError') {
+                    return res.json({
+                        msg:'Erro de ID '
+
+                    })
+                }
+
+                if (error.code == 1100){
+                    const field = Object.keys(error.keyValue)[0]; 
+
+                    return res.json({
+                        msg: `Error por complicidad en el campo'${field}'`, 
+                        [field]: `El campo'${field}' con el valor '${error.keyValue[field]}', ya se encuentra regitrado `
+                    });
+                }
+        }
     }
-}
 //http//localhost:3000/api/insumos -->{}
     //http//localhost:3000/api/insumos?status -->{status}
 const GetInsumos = async (req, res) => {
@@ -42,6 +60,7 @@ const GetInsumos = async (req, res) => {
         res.json({
             msg:'No se pueden listar total o parcialmente los productos'
         });
+
     }
 }
 const deleteInsumos = async (req, res) => {
@@ -53,6 +72,7 @@ const updateInsumos = async(req, res) => {
     try {
         const id = req.params.id;
         const inputData  = req.body;
+
 
         const data = await dbUpdateInsumos(id, inputData);
 
@@ -67,6 +87,9 @@ const updateInsumos = async(req, res) => {
             msg: 'no se pudo eliminar el insumo'
         });
         
+         if(error.name === 'CatError') {
+
+        }
     }
 }
 
@@ -86,7 +109,10 @@ const getInsumo = async (req, res) =>{
         res.json({
             msg:'No se pudo registrar el insumo '
         });
-       
+        
+        if(error.name === 'CatError') {
+
+        }
     }
 }
 

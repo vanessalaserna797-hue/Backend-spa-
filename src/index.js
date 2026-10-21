@@ -16,7 +16,7 @@ app.use(express.json() );
 
 // Definiendo 1 endpoint (ruta de entrada)
 app.get('/healt', (req, res) => {
-  res.send('Apartado CFF - Corralejo Fast Food panel menu compuesto Funcionado a la perfección!')
+  res.json('¡Api para Spa Key Studio!')
 });
 
 // Enlazar todas las rutas de la app

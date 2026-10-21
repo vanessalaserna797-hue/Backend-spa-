@@ -64,6 +64,15 @@ const updateCategory = async (req, res) => {
         res.json({
             msg: 'no se ha pordido eliminar la categoria'
         });
+
+        if (error.code == 1100){
+                    const field = Object.keys(error.keyValue)[0]; 
+
+                    return res.json({
+                        msg: `Error por complicidad en el campo'${field}'`, 
+                        [field]: `El campo'${field}' con el valor '${error.keyValue[field]}', ya se encuentra regitrado `
+                    });
+                }
         
     }
    

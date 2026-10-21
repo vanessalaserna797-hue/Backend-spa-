@@ -8,12 +8,12 @@ const dbCreateInsumos = async (newInsumo) => {
     return await insumosModel.create(newInsumo);
 }
 
-const dbGetInsumos = async (status) => {
+const dbGetInsumos = async (state) => {
     let filter = {};
 
     const availableStatus = ['disponible','agotado', 'sin insumo']
 
-    if( option && availableStatus.includes( status ) ) {
+    if( option && availableStatus.includes( state ) ) {
         filter.status = option;
     }
 
