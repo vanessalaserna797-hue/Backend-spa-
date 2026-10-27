@@ -23,6 +23,7 @@ app.get('/healt', (req, res) => {
 app.use( '/api/citas', citasRoute);
 app.use( '/api/categories', categoriesRoute );
 app.use( '/api/insumos', insumosRoute);
+app.use('/api/auth/, authRoute')
 
 
 //Iniciar servidor

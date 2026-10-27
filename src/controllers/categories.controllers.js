@@ -31,8 +31,7 @@ const getCategories = async (req, res) => {
 
         res.json({
             msg:'No se ha podido obtener las categorias activas'
-        })
-        
+        });
     }
   
 }

@@ -13,55 +13,53 @@ import { dbCreateInsumos, dbGetInsumos, dbinsertarInsumos, dbUpdateInsumos} from
         }
     };
 
-        const createInsumos = async (req , res) => {
-                try {
-                        const inputData = req.body;
+    const createInsumos = async (req , res) => {
+            try {
+                const data = await dbCreateInsumos(inputData);
 
-                        const data = await dbCreateInsumos(inputData);
+                      
+            } catch (error) {
+                console.error(error);   
 
-                    if(error.name == 'CatError') {
-                        return res.status(400).json({
-                        msg: 'Error en el formato ID',
-                        [error.path]: `El identificador ${error.value} no tiene el formato ID `
-                    });
-                     res.status(200).json({msg:'Registrar insumo', data: data});
-                     
-                    } catch (error) {
-                    console.error(error);
-                    
-                    if (error.code == 1100){
-                        const field = Object.keys(error.keyValue)[0]; 
-
-                        return res.json({
-                            msg: `Error por complicidad en el campo'${field}'`, 
-                            [field]: `El campo'${field}' con el valor '${error.keyValue[field]}', ya se encuentra regitrado `
-                        });
-                    }
-                    res.json({msg:'No se pudo registrar el insumo'});
+                if (error.code == 11000){
+                    const field = Object.keys(error.keyValue)[0]; 
+                    return res.json({msg: `Error por complicidad en el campo'${field}'`, 
+                    [field]: `El campo'${field}' con el valor '${error.keyValue[field]}', ya se encuentra regitrado `});
                 }
-            }
+
+                if(error.name == 'CatError') {
+                    return res.status(400).json({
+                    msg: 'Error en el formato ID',
+                    [error.path]: `El identificador ${error.value} no tiene el formato ID `});
+                }
+               
+                    res.json({msg:'No se pudo registrar el insumo'});
+                    res.status(200).json({msg:'Registrar insumo', data: data});
+            
+                }
         }
-//http//localhost:3000/api/insumos -->{}
+
+               
+    //http//localhost:3000/api/insumos -->{}
     //http//localhost:3000/api/insumos?status -->{status}
-const GetInsumos = async (req, res) => {
+    const GetInsumos = async (req, res) => {
+            try {
+                console.log(req.query);
+                const query = req.query; 
 
-    try {
-        console.log(req.query);
-        const query = req.query; 
+                const data = await dbGetInsumos(query);
 
-        const data = await dbGetInsumos(query);
+                res.status(200).json({msg:'Lista total o parcialmente de los productos', data: data});
 
-        res.status(200).json({msg:'Lista total o parcialmente de los productos', data: data});
+            } catch (error) {
+                console.error(error);
 
-    } catch (error) {
-        console.error(error);
+                res.json({
+                    msg:'No se pueden listar total o parcialmente los productos'
+                });
 
-        res.json({
-            msg:'No se pueden listar total o parcialmente los productos'
-        });
-
+            }
     }
-}
 const deleteInsumos = async (req, res) => {
     return await res.status(200).json({
         msg:'Eliminar un insumo', data: data
