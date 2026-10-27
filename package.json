@@ -18,10 +18,11 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "ejecuta Start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --env-file .env --watch src/index.js"
   },
+
   "dependencies": {
-    "express": "^5.2.1" 
+    "express": "^5.2.1",
+    "mongoose": "^9.11.2"
   }
 }
