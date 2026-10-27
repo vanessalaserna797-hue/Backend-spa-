@@ -1,32 +1,40 @@
-// const express = require('express');   //CommonJS
-import express from 'express';  
-import conexion from './config/mongo.config.js';  // Conexion a la base de datos
+
+import express from 'express';
+import conexion from './config/mongo.config.js'; 
 import citasRoute from './routes/citas.routes.js';
 import categoriesRoute from './routes/categories.routes.js';
 import insumosRoute from './routes/insumos.routes.js';
-
+import usuariosRoute from './routes/Usuarios.routes.js';
+import authRoute from './routes/auth.routes.js' 
+// Iniciar el servidor
 const port = process.env.PORT || 3001;
 
-const app = express();    // Instancia de express
+// Instancia de express
+const app = express();
 
-conexion();   // Ejecuta la conexion a la base de datos
+ // Ejecuta la conexion a la base de datos
+conexion();
 
-// Habilita a la app para comprender objetos JSON
-app.use(express.json() );
+// Habilita a la aplicacion para interpretar JSON
+app.use( express.json() );
 
-// Definiendo 1 endpoint (ruta de entrada)
-app.get('/healt', (req, res) => {
-  res.json('¡Api para Spa Key Studio!')
+// Define 1 endpoint (ruta de entrada)
+app.get('/health', (req, res) => {
+    res.json({ msg: 'Servidor de Spa Funcionando!' });
 });
+
+// Enlazar todas las rutas de la aplicacion
+app.use( '/api/users', usuariosRoute)
 
 // Enlazar todas las rutas de la app
 app.use( '/api/citas', citasRoute);
 app.use( '/api/categories', categoriesRoute );
 app.use( '/api/insumos', insumosRoute);
-app.use('/api/auth/, authRoute')
+app.use('/api/auth', authRoute)
 
 
 //Iniciar servidor
 app.listen(port, () => {
-  console.log //(Servidor está corriendo en http://localhost:${port});
+  console.log(`Servidor está corriendo en http://localhost:${port}`);
 });
+

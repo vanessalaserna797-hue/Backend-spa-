@@ -17,5 +17,6 @@ const verifyPassword = ( originalPassword , hashPassword ) => {
 
 
 export {
-    generatePassword
+    generatePassword,
+    verifyPassword
 }

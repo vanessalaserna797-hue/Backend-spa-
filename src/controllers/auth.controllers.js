@@ -1,6 +1,7 @@
 import { verifyPassword } from '../helpers/bcrypt.helpers.js'
 import { dbGetCita } from '../services/citas.services.js';
-const loginCita = async (req, res ) => {
+
+const loginUser = async (req, res ) => {
 
     //Paso 1: Obtener las credenciales del usuario
     const inputData = req.body;
@@ -54,8 +55,9 @@ const loginCita = async (req, res ) => {
     });
 }
 
+const renovarToken = () => {}
+
 export {
-    loginCita,
-    verifyPassword,
-    dbGetCita
+    loginUser,
+    renovarToken
 }
