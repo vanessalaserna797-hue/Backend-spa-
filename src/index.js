@@ -1,4 +1,3 @@
-
 import express from 'express';
 import conexion from './config/mongo.config.js'; 
 import citasRoute from './routes/citas.routes.js';
@@ -23,18 +22,16 @@ app.get('/health', (req, res) => {
     res.json({ msg: 'Servidor de Spa Funcionando!' });
 });
 
-// Enlazar todas las rutas de la aplicacion
-app.use( '/api/users', usuariosRoute)
 
 // Enlazar todas las rutas de la app
+app.use( '/api/users', usuariosRoute)
 app.use( '/api/citas', citasRoute);
 app.use( '/api/categories', categoriesRoute );
 app.use( '/api/insumos', insumosRoute);
-app.use('/api/auth', authRoute)
+app.use( '/api/auth', authRoute)
 
 
 //Iniciar servidor
 app.listen(port, () => {
   console.log(`Servidor está corriendo en http://localhost:${port}`);
 });
-

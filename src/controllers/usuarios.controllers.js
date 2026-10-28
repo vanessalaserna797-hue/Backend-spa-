@@ -1,9 +1,12 @@
+import { generatePassword } from "../helpers/bcrypt.helpers.js";
 import { dbCreateUser, dbDeleteUsers, dbGetUsers, dbUpdateUser} from "../services/usuarios.services.js";
 
 const  createUsers = async (req, res) => {
     try {
         // Extrae los datos del cuerpo de la peticion
         const inputData = req.body;
+
+        inputData.password = generatePassword(inputData.password)
 
         // Usar el servicio para regitrar
         const data = await dbCreateUser(inputData);

@@ -1,5 +1,6 @@
-import { verifyPassword } from '../helpers/bcrypt.helpers.js'
-import { dbGetCita } from '../services/citas.services.js';
+import { verifyPassword } from '../helpers/bcrypt.helpers.js';
+import { generateToken } from '../helpers/jwt.helpers.js';
+import { dbGetUserByEmail } from '../services/usuarios.services.js';
 
 const loginUser = async (req, res ) => {
 
@@ -36,7 +37,8 @@ const loginUser = async (req, res ) => {
         _id: userFound._id,
         name: userFound.name,
         email: userFound.email,
-        role: userFound.role
+        role: userFound.role,
+        status: userFound.status
         
 
     }
@@ -55,7 +57,16 @@ const loginUser = async (req, res ) => {
     });
 }
 
-const renovarToken = () => {}
+const renovarToken = (req, res) => {
+    const data = req.Holaatodos
+    console.log('::::::');
+    
+    console.log('Soy el controlador de verifyAuthenticate');
+
+    res.json({
+        msg:'Verifica y actualiza las credenciales del usuario'
+    });
+}
 
 export {
     loginUser,

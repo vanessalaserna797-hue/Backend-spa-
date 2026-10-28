@@ -20,9 +20,13 @@ const dbDeleteUsers = async (id) => {
     return await UsuariosModel.findByIdAndDelete( id );
 }
 
+const dbGetUserByEmail = async (email, status = true ) => {
+    return await UsuariosModel.findOne({email: email, status: status});
+}
 export {
     dbCreateUser,
     dbGetUsers,
     dbUpdateUser,
-    dbDeleteUsers
+    dbDeleteUsers,
+    dbGetUserByEmail
 }
