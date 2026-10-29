@@ -28,9 +28,9 @@ const authMiddleware = async (req, res, next) => {
     if( tokenParts.length !== 3) {
         res.json({
             msg: 'Formato del token no es valido'
-        })
+        });
     }
-
+     
     //(2.4) Verificar la autentizidad del token (si fue generada)
     const payload = validateToken(token);
 
@@ -51,18 +51,12 @@ const authMiddleware = async (req, res, next) => {
         });
     }
 
-    req.holaatodos = 'Hola terricolas despierten'
+    req.userFound = userFound; // Guardar el usuario encontrados en el req
 
     console.log( 'userFound', userFound );
 
     // 4. Generar un nuevo token (debe tener las mismas propiedades del payload original)
-    //const newPayload =  {
-    //    _id: userFound._id,
-    //    name: userFound.name,
-    //    email: userFound.email,
-    //    role: userFound.role,
-    //    status: userFound.status
-    //}
+   
 
     //const token = generateToken (newPayload);
     

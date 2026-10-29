@@ -18,15 +18,15 @@ const generateToken = (payload) => {
 const validateToken = (token) => {
     try {
         const payload = jwt.verify( 
-        token,                    // Token valido enviado por el usuario
-        process.env.JWT_SECRET    // Cadena Secreta que se mezclo con el pay
-    );
+            token,                    // Token valido enviado por el usuario
+            process.env.JWT_SECRET    // Cadena Secreta que se mezclo con el pay
+        )
 
-    console.log( 'payload: ', payload);  //debbuging
+        console.log( 'payload: ', payload);  //debbuging
 
-    return payload;
-
-    } catch (error) {
+        return payload;
+    }
+    catch (error) {
         console.error(error);
 
         return null;
