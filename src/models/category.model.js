@@ -14,7 +14,7 @@ const categorySchema = new Schema(
         type: Boolean,
         default: true 
     },
-    createBy: {
+    createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'cita',
         default: null

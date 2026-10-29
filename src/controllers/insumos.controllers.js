@@ -62,9 +62,11 @@ import { dbCreateInsumos, dbGetInsumos, dbinsertarInsumos, dbUpdateInsumos} from
     }
 const deleteInsumos = async (req, res) => {
     return await res.status(200).json({
-        msg:'Eliminar un insumo', data: data
+        msg:'Eliminar un insumo', 
+        data: data
     });
 }
+
 const updateInsumos = async(req, res) => {
     try {
         const id = req.params.id;
